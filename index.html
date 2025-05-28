@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Steps Challenge Winners</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom right, #0202B0, #121212);
+      color: #ffffff;
+      text-align: center;
+      overflow-x: hidden;
+    }
+    header img {
+      width: 140px;
+      margin: 20px;
+    }
+    h1 {
+      font-size: 2.5em;
+      color: #F3B83B;
+      margin-bottom: 0;
+    }
+    .prize-row {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin-top: 20px;
+    }
+    .prize-box {
+      background-color: #1e1e2f;
+      padding: 20px;
+      border-radius: 10px;
+      width: 160px;
+      box-shadow: 0 0 12px rgba(255,255,255,0.1);
+    }
+    .prize-box h3 {
+      margin: 0;
+      color: #F3B83B;
+    }
+    .prize-box p {
+      margin: 10px 0 0;
+      font-size: 1.1em;
+    }
+    .reveal-section {
+      margin: 40px 0 20px;
+    }
+    .winner-container {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin-top: 30px;
+      flex-wrap: wrap;
+    }
+    .winner-box {
+      display: none;
+      background-color: #1e1e2f;
+      color: #fff;
+      border-radius: 16px;
+      padding: 20px;
+      width: 200px;
+      animation: float 2s ease-in-out;
+      box-shadow: 0 0 12px rgba(255,255,255,0.2);
+    }
+    .winner-box img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 4px solid #F3B83B;
+      object-fit: cover;
+    }
+    .winner-box h2 {
+      margin: 10px 0 5px;
+    }
+    .winner-box span {
+      font-weight: bold;
+      display: inline-block;
+      margin-top: 8px;
+      background: #F3B83B;
+      color: #121212;
+      padding: 4px 10px;
+      border-radius: 6px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 1em;
+      background-color: #F3B83B;
+      border: none;
+      border-radius: 8px;
+      color: #121212;
+      cursor: pointer;
+      margin: 10px;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      top: 30%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #1e1e1e;
+      color: #fff;
+      padding: 30px;
+      border: 2px solid #f3b83b;
+      border-radius: 12px;
+      z-index: 10000;
+    }
+    #countdown {
+      position: fixed;
+      background-color: #000000ee;
+      top: 0; left: 0; right: 0; bottom: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 4em;
+      color: #F3B83B;
+      z-index: 9999;
+    }
+    .confetti {
+      position: fixed;
+      top: -10px;
+      width: 8px;
+      height: 12px;
+      background-color: #f3b83b;
+      animation: fall 3s infinite;
+    }
+    @keyframes fall {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(100vh); }
+    }
+  </style>
+</head>
+<body>
+  <div id="countdown">3</div>
+  <audio id="bg-music" autoplay loop>
+    <source src="https://files.freemusicarchive.org/storage-freemusicarchive-org/music/no_curator/Scott_Holmes/Motivational_Music/Scott_Holmes_-_Happy_Uplifting.mp3" type="audio/mpeg">
+  </audio>
+  <header>
+    <img src="Logo colors-01.png" alt="Beyond Logo" />
+    <h1>Steps Challenge Winners</h1>
+  </header>
+
+  <div class="prize-row">
+    <div class="prize-box">
+      <h3>🥇 1st Place</h3>
+      <p>250 SAR + 1 Day Off</p>
+    </div>
+    <div class="prize-box">
+      <h3>🥈 2nd Place</h3>
+      <p>200 SAR</p>
+    </div>
+    <div class="prize-box">
+      <h3>🥉 3rd Place</h3>
+      <p>150 SAR</p>
+    </div>
+  </div>
+
+  <div class="reveal-section">
+    <h2>Are you ready to know who the winners are?</h2>
+    <button onclick="revealWinner('first')">Reveal 1st Place</button>
+    <button onclick="revealWinner('second')">Reveal 2nd Place</button>
+    <button onclick="revealWinner('third')">Reveal 3rd Place</button>
+  </div>
+
+  <div class="winner-container">
+    <div id="first" class="winner-box">
+      <img src="Mo Tairi- Headshot 2025.jpg" alt="Mohammed">
+      <h2>🥇 Mohammed</h2>
+      <span>328,352 steps</span>
+    </div>
+
+    <div id="second" class="winner-box">
+      <img src="Zaina - Headshot 2025.jpg" alt="Zaina">
+      <h2>🥈 Zaina</h2>
+      <span>318,011 steps</span>
+    </div>
+
+    <div id="third" class="winner-box">
+      <img src="Sondos - Headshot 2025.JPG" alt="Sondos">
+      <h2>🥉 Sondos</h2>
+      <span>302,868 steps</span>
+    </div>
+  </div>
+
+  <button onclick="celebrate()">🎉 Celebrate Them</button>
+  <div id="modal" class="modal">🎊 Congrats to the winners! 🎊</div>
+
+  <audio id="sound-1st" src="https://cdn.pixabay.com/audio/2022/03/15/audio_7e4c650763.mp3"></audio>
+  <audio id="sound-2nd" src="https://cdn.pixabay.com/audio/2021/08/04/audio_c0c84269b0.mp3"></audio>
+  <audio id="sound-3rd" src="https://cdn.pixabay.com/audio/2022/03/03/audio_327d42396d.mp3"></audio>
+  <audio id="drumroll" src="https://cdn.pixabay.com/audio/2022/03/15/audio_e8fc72e82c.mp3"></audio>
+
+  <script>
+    let revealed = 0;
+    const countdown = document.getElementById('countdown');
+    let count = 3;
+    const timer = setInterval(() => {
+      count--;
+      countdown.innerText = count > 0 ? count : 'Let’s go!';
+      if (count < 0) {
+        clearInterval(timer);
+        countdown.style.display = 'none';
+      }
+    }, 1000);
+
+    function revealWinner(place) {
+      document.getElementById('drumroll').play();
+      setTimeout(() => {
+        document.getElementById(place).style.display = 'block';
+        revealed++;
+        if (place === 'first') document.getElementById('sound-1st').play();
+        if (place === 'second') document.getElementById('sound-2nd').play();
+        if (place === 'third') document.getElementById('sound-3rd').play();
+      }, 2500);
+    }
+
+    function celebrate() {
+      showModal();
+      launchConfetti();
+    }
+
+    function showModal() {
+      const modal = document.getElementById("modal");
+      modal.style.display = "block";
+      setTimeout(() => { modal.style.display = "none"; }, 4000);
+    }
+
+    function launchConfetti() {
+      for (let i = 0; i < 30; i++) {
+        const c = document.createElement("div");
+        c.className = "confetti";
+        c.style.left = Math.random() * 100 + "vw";
+        c.style.backgroundColor = ["#f3b83b", "#ffffff", "#008CBA"][i % 3];
+        c.style.animationDuration = (Math.random() * 2 + 2) + "s";
+        document.body.appendChild(c);
+        setTimeout(() => c.remove(), 3000);
+      }
+    }
+  </script>
+</body>
+</html>
